@@ -1,0 +1,62 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f1f8f4;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: #2d6a4f;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  background-color: #40916c;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tabs button:hover {
+  background-color: #2d6a4f;
+}
+
+.secao {
+  display: none;
+}
+
+.ativa {
+  display: block;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, textarea, select, button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #52b788;
+  color: white;
+  border: none;
+}
+
+button:hover {
+  background-color: #40916c;
+}

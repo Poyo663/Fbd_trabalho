@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login / Cadastro - Sistema Social</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles/main.css" />
+</head>
+<body class="bg-green-50 flex items-center justify-center min-h-screen font-sans">
+
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="text-3xl font-bold mb-6 text-green-700 text-center">Sistema de Acompanhamento</h1>
+
+    <!-- Formulário Login -->
+    <form id="loginForm" class="space-y-4">
+      <h2 class="text-xl font-semibold text-green-600">Entrar</h2>
+      <div>
+        <label for="loginEmail" class="block text-gray-700">Email</label>
+        <input type="email" id="loginEmail" name="email" required class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+      <div>
+        <label for="loginSenha" class="block text-gray-700">Senha</label>
+        <input type="password" id="loginSenha" name="senha" required class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+      <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Entrar</button>
+      <p class="mt-4 text-center text-sm text-gray-600">
+        Ainda não tem conta? 
+        <button type="button" id="showRegister" class="text-green-700 font-semibold hover:underline">Cadastre-se</button>
+      </p>
+    </form>
+
+    <!-- Formulário Cadastro -->
+    <form id="registerForm" class="space-y-4 hidden mt-6">
+      <h2 class="text-xl font-semibold text-green-600">Cadastrar</h2>
+      <div>
+        <label for="nome" class="block text-gray-700">Nome completo</label>
+        <input type="text" id="nome" name="nome" required class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+      <div>
+        <label for="cpf" class="block text-gray-700">CPF</label>
+        <input type="text" id="cpf" name="cpf" required class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+      <div>
+        <label for="email" class="block text-gray-700">Email</label>
+        <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+      <div>
+        <label for="telefone" class="block text-gray-700">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+      <div>
+        <label for="senha" class="block text-gray-700">Senha</label>
+        <input type="password" id="senha" name="senha" required class="w-full border border-gray-300 rounded px-3 py-2" />
+      </div>
+      <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition">Cadastrar</button>
+      <p class="mt-4 text-center text-sm text-gray-600">
+        Já tem uma conta? 
+        <button type="button" id="showLogin" class="text-green-700 font-semibold hover:underline">Entrar</button>
+      </p>
+    </form>
+
+    <p id="message" class="mt-4 text-center text-sm"></p>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const showRegisterBtn = document.getElementById('showRegister');
+    const showLoginBtn = document.getElementById('showLogin');
+    const message = document.getElementById('message');
+
+    // Alternar formulários
+    showRegisterBtn.addEventListener('click', () => {
+      loginForm.classList.add('hidden');
+      registerForm.classList.remove('hidden');
+      message.textContent = '';
+    });
+
+    showLoginBtn.addEventListener('click', () => {
+      registerForm.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+      message.textContent = '';
+    });
+
+    // Envio Login
+    loginForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      message.textContent = '';
+      const data = {
+        email: loginForm.email.value.trim(),
+        senha: loginForm.senha.value.trim()
+      };
+
+      try {
+        message.textContent = 'Funcionalidade de login ainda não implementada.';
+        message.className = 'mt-4 text-center text-yellow-600 font-semibold';
+      } catch (err) {
+        message.textContent = 'Erro ao tentar entrar.';
+        message.className = 'mt-4 text-center text-red-600 font-semibold';
+      }
+    });
+
+    // Envio Cadastro
+    registerForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      message.textContent = '';
+      const data = {
+        nome: registerForm.nome.value.trim(),
+        cpf: registerForm.cpf.value.trim(),
+        email: registerForm.email.value.trim(),
+        telefone: registerForm.telefone.value.trim(),
+        senha: registerForm.senha.value.trim(),
+      };
+
+      try {
+        const response = await fetch('http://localhost:3001/api/usuarios/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          message.textContent = 'Cadastro realizado com sucesso! Você já pode entrar.';
+          message.className = 'mt-4 text-center text-green-700 font-semibold';
+          registerForm.reset();
+          registerForm.classList.add('hidden');
+          loginForm.classList.remove('hidden');
+        } else {
+          const resData = await response.json();
+          message.textContent = resData.error || 'Erro ao cadastrar usuário.';
+          message.className = 'mt-4 text-center text-red-600 font-semibold';
+        }
+      } catch (error) {
+        message.textContent = 'Erro de conexão com o servidor.';
+        message.className = 'mt-4 text-center text-red-600 font-semibold';
+      }
+    });
+  </script>
+</body>
+</html>

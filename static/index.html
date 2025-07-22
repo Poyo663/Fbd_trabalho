@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel Inicial - Sistema de Acompanhamento Social</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+<body class="bg-green-50 font-sans min-h-screen">
+
+  <header class="bg-green-700 text-white py-4 px-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Sistema de Acompanhamento</h1>
+    <nav class="space-x-4">
+      <button onclick="mostrarSecao('criancas')" class="hover:underline">Crianças</button>
+      <button onclick="mostrarSecao('relatorios')" class="hover:underline">Relatórios</button>
+      <button onclick="mostrarSecao('agendamentos')" class="hover:underline">Agendamentos</button>
+    </nav>
+  </header>
+
+  <main class="p-6">
+    <!-- Seção Crianças -->
+    <section id="criancas" class="secao">
+      <h2 class="text-xl font-semibold mb-4">Crianças em Situação de Risco</h2>
+
+      <!-- Formulário de Adição -->
+      <form id="formCrianca" class="space-y-4 mb-6">
+        <input type="text" id="nomeCrianca" placeholder="Nome da criança" required class="border px-3 py-2 rounded w-full" />
+        <input type="text" id="situacaoCrianca" placeholder="Situação" required class="border px-3 py-2 rounded w-full" />
+        <textarea id="encaminhamentos" placeholder="Encaminhamentos" class="border px-3 py-2 rounded w-full"></textarea>
+        <input type="text" id="datasAcompanhamento" placeholder="Datas de acompanhamento" class="border px-3 py-2 rounded w-full" />
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Adicionar</button>
+      </form>
+
+      <!-- Busca -->
+      <input type="text" id="buscaNome" placeholder="Buscar por nome" class="border px-3 py-2 rounded mb-4 w-full" />
+
+      <!-- Lista -->
+      <ul id="listaCriancas" class="space-y-2"></ul>
+    </section>
+
+    <!-- Seção Relatórios -->
+    <section id="relatorios" class="secao hidden">
+      <h2 class="text-xl font-semibold mb-4">Relatórios de Trabalho</h2>
+      <form id="formRelatorio" class="space-y-4 mb-6">
+        <select id="tipoRelatorio" required class="border px-3 py-2 rounded w-full">
+          <option value="semanal">Semanal</option>
+          <option value="mensal">Mensal</option>
+        </select>
+        <input type="date" id="dataRelatorio" required class="border px-3 py-2 rounded w-full" />
+        <textarea id="conteudoRelatorio" placeholder="Conteúdo do relatório" class="border px-3 py-2 rounded w-full"></textarea>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Adicionar Relatório</button>
+      </form>
+      <ul id="listaRelatorios" class="space-y-2"></ul>
+    </section>
+
+    <!-- Seção Agendamentos -->
+    <section id="agendamentos" class="secao hidden">
+      <h2 class="text-xl font-semibold mb-4">Agendamento de Visitas</h2>
+      <form id="formAgendamento" class="space-y-4">
+        <input type="text" id="nomeAgendado" placeholder="Nome da criança" required class="border px-3 py-2 rounded w-full" />
+        <input type="date" id="dataVisita" required class="border px-3 py-2 rounded w-full" />
+        <textarea id="obsAgendamento" placeholder="Observação" class="border px-3 py-2 rounded w-full"></textarea>
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Agendar</button>
+      </form>
+
+      <div id="listaAgendamentos" class="mt-6 space-y-3">
+        <!-- Agendamentos futuros -->
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

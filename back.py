@@ -37,11 +37,14 @@ def getCriacas(page=1):
         cursor.execute(
             f"select * from CriacaAdolescente limit {PAGE_SIZE} offset {offset}"
         )
-        print(cursor.fetchall())
+
+        output = cursor.fetchall()
         cursor.close()
+        return output
     except:
         # placeholder
         print("nao foi possivel fazer a query")
+        return []
 
 
 getCriacas()
