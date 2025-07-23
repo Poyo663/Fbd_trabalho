@@ -15,7 +15,7 @@ async function carregarCriancas() {
   lista.innerHTML = '';
   criancas.forEach(c => {
     const li = document.createElement('li');
-    li.textContent = `${c.nome} - ${c.situacao} - Encaminhamentos: ${c.encaminhamentos} - Acompanhamentos: ${c.datas_acompanhamento}`;
+    li.textContent = `${c[1]} - ${c[6]} - Encaminhamentos: ${c.encaminhamentos} - Acompanhamentos: ${c.datas_acompanhamento}`;
     lista.appendChild(li);
   });
 }
@@ -25,8 +25,10 @@ async function adicionarCrianca(event) {
   const data = {
     nome: document.getElementById('nomeCrianca').value,
     situacao: document.getElementById('situacaoCrianca').value,
-    encaminhamentos: document.getElementById('encaminhamentos').value,
-    datas_acompanhamento: document.getElementById('datasAcompanhamento').value
+    data_nascimento: document.getElementById('encaminhamentos').value,
+    sexo: document.getElementById('datasAcompanhamento').value,
+    cpf: document.getElementById('cpf').value,
+    escola: document.getElementById('Escola').value
   };
   const res = await fetch(`${API}/criancas`, {
     method: 'POST',
@@ -57,7 +59,7 @@ async function buscarCrianca() {
   lista.innerHTML = '';
   criancas.forEach(c => {
     const li = document.createElement('li');
-    li.textContent = `${c.nome} - ${c.situacao} - Encaminhamentos: ${c.encaminhamentos} - Acompanhamentos: ${c.datas_acompanhamento}`;
+    li.textContent = `${c[1]} - ${c[6]} - Encaminhamentos: ${c.encaminhamentos} - Acompanhamentos: ${c.datas_acompanhamento}`;
     lista.appendChild(li);
   });
 }
@@ -106,7 +108,7 @@ async function carregarAgendamentos() {
   lista.innerHTML = '';
   dados.forEach(a => {
     const li = document.createElement('li');
-    li.textContent = `${a.nomeCrianca} - visita em ${a.dataVisita} - Obs: ${a.observacao || '-'}`;
+    li.textContent = `${a[4] || "Anonimo"} - visita em ${a[1]} - Obs: ${a[3] || '-'}`;
     lista.appendChild(li);
   });
 }

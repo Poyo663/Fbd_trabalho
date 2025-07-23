@@ -27,11 +27,40 @@ def getCriacas(page=0):
         cursor.close()
         return output
 
+    except:
+        # placeholder
+        print("nao foi possivel fazer a query")
+        return []
+
+
+def addCrianca(nome, nascimento, sexo, cpf, escola, situacao, atendimento=None):
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            f"insert into Crianca_Adolescente (nome_completo, data_nascimento, sexo, cpf, escola, situacao_familiar, id_atendimento) values('{nome}', '{nascimento}', '{sexo}', '{cpf}', '{escola}', '{situacao}', null);"
+        )
+        connection.commit()
+        cursor.close()
+    except:
+        connection.rollback()
+
+
+def getCriancaPorNome(nome):
+    try:
+        cursor = connection.cursor()
+        cursor.execute(
+            f"select * from Crianca_Adolescente where nome_completo like '{nome}%';"
+        )
+
+        output = cursor.fetchall()
+        cursor.close()
+        return output
 
     except:
         # placeholder
         print("nao foi possivel fazer a query")
         return []
+
 
 def getAgendamentos(page=0):
     try:
@@ -45,11 +74,11 @@ def getAgendamentos(page=0):
         cursor.close()
         return output
 
-
     except:
         # placeholder
         print("nao foi possivel fazer a query")
         return []
+
 
 # def insertAgendamento():
 
@@ -76,11 +105,34 @@ def criancas(page):
     return json.dumps(data)
 
 
+@app.route("/api/criancas/buscar/<nome>")
+@cross_origin()
+def criancas_buscar(nome):
+    return json.dumps(getCriancaPorNome(nome))
+
+
+@app.route("/api/criancas", methods=["POST"])
+@cross_origin()
+def criancas_post():
+    body = request.get_json()
+    print(body)
+    addCrianca(
+        body["nome"],
+        body["data_nascimento"],
+        body["sexo"],
+        body["cpf"],
+        body["escola"],
+        body["situacao"],
+    )
+    return "Ok", 201
+
+
 @app.route("/api/agendamentos/<page>")
 @cross_origin()
 def agendamento_first_page(page):
     data = getAgendamentos(int(page))
     return json.dumps(data)
+
 
 @app.route("/api/agendamentos")
 @cross_origin()
@@ -88,11 +140,13 @@ def agendamento():
     data = getAgendamentos()
     return json.dumps(data)
 
-@app.route("/api/agendamentos", methods = ['POST'])
+
+@app.route("/api/agendamentos", methods=["POST"])
 @cross_origin()
 def agendamento_post():
     print(request.get_json())
     return "Ok", 201
+
 
 if __name__ == "__main__":
     app.run(port=3001, debug=True)
