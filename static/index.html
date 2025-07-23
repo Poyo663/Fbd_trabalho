@@ -13,8 +13,8 @@
     <h1 class="text-2xl font-bold">Sistema de Acompanhamento</h1>
     <nav class="space-x-4">
       <button onclick="mostrarSecao('criancas')" class="hover:underline">Crianças</button>
-      <button onclick="mostrarSecao('relatorios')" class="hover:underline">Relatórios</button>
-      <button onclick="mostrarSecao('agendamentos')" class="hover:underline">Agendamentos</button>
+      <button onclick="mostrarSecao('relatorios')" class="hover:underline">Profissionais</button>
+      <button onclick="mostrarSecao('agendamentos')" class="hover:underline">Atendimentos</button>
     </nav>
   </header>
 
@@ -41,28 +41,47 @@
       <ul id="listaCriancas" class="space-y-2"></ul>
     </section>
 
-    <!-- Seção Relatórios -->
+    <!-- Seção Profissionais -->
     <section id="relatorios" class="secao hidden">
-      <h2 class="text-xl font-semibold mb-4">Relatórios de Trabalho</h2>
-      <form id="formRelatorio" class="space-y-4 mb-6">
-        <select id="tipoRelatorio" required class="border px-3 py-2 rounded w-full">
-          <option value="semanal">Semanal</option>
-          <option value="mensal">Mensal</option>
+      <h2 class="text-xl font-semibold mb-4">Profissionais Disponíveis</h2>
+
+        <input type="text" id="nomeProfissional" placeholder="Nome do Profissional" required class="border px-3 py-2 rounded w-full" />
+        <h3>Gênero</h3>
+        <select name="Gênero" id="generoProfissional" placeholder="Situação" required class="border px-3 py-2 rounded w-full" >
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+          <option value="Não binário">Não binário</option>
         </select>
-        <input type="date" id="dataRelatorio" required class="border px-3 py-2 rounded w-full" />
-        <textarea id="conteudoRelatorio" placeholder="Conteúdo do relatório" class="border px-3 py-2 rounded w-full"></textarea>
-        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Adicionar Relatório</button>
+        <input type="text" id="cpfProfissional" placeholder="CPF" class="border px-3 py-2 rounded w-full" />
+        <h3>Setor</h3>
+        <select name="Setor" id="setorProfissional" placeholder="Setor" required class="border px-3 py-2 rounded w-full" >
+          <option value="Psicologia">Psicologia</option>
+          <option value="Educação">Educação</option>
+          <option value="Serviço Social">Serviço Social</option>
+        </select>
+        <button type="submit" id="Psubmit" class="bg-green-600 text-white px-4 py-2 rounded">Adicionar</button>
       </form>
-      <ul id="listaRelatorios" class="space-y-2"></ul>
+
+      <!-- Busca -->
+      <input type="text" id="PbuscaNome" placeholder="Buscar por nome" class="border px-3 py-2 rounded mb-4 w-full" />
+
+      <!-- Lista -->
+      <ul id="Plista" class="space-y-2"></ul>
     </section>
 
     <!-- Seção Agendamentos -->
     <section id="agendamentos" class="secao hidden">
-      <h2 class="text-xl font-semibold mb-4">Agendamento de Visitas</h2>
+      <h2 class="text-xl font-semibold mb-4">Atendimentos</h2>
       <form id="formAgendamento" class="space-y-4">
-        <input type="text" id="nomeAgendado" placeholder="Nome da criança" required class="border px-3 py-2 rounded w-full" />
+        <h3>Data</h3>
         <input type="date" id="dataVisita" required class="border px-3 py-2 rounded w-full" />
-        <textarea id="obsAgendamento" placeholder="Observação" class="border px-3 py-2 rounded w-full"></textarea>
+        <h3>Setor</h3>
+        <select name="Setor" id="setorAgendamento" class="border px-3 py-2 rounded w-full">
+          <option value="Psicologia">Psicologia</option>
+          <option value="Educação">Educação</option>
+          <option value="Serviço Social">Serviço Social</option>
+        </select>
+          <textarea id="obsAgendamento" placeholder="Observação" class="border px-3 py-2 rounded w-full"></textarea>
         <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Agendar</button>
       </form>
 

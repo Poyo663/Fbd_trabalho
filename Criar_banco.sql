@@ -179,6 +179,20 @@ INSERT INTO Responsavel_Legal (nome, grau_parentesco, telefone, endereco, id_cri
 ('Maria Lima', 'Mãe', '(11) 93333-4444', 'Rua Nova, 321', 4),
 ('Carlos Costa', 'Pai', '(11) 95555-6666', 'Alameda Central, 88', 5);
 
+alter table Crianca_Adolescente
+add constraint crianca_delete_cascade
+foreign key (id_atendimento) references Atendimento(id_atendimento) on delete cascade;
+
+alter table Responsavel_Legal
+add constraint resp_delete_cascade
+foreign key (id_crianca) references Crianca_Adolescente(id_crianca) on delete cascade;
+
+ALTER TABLE responsavel_legal
+DROP CONSTRAINT responsavel_legal_id_crianca_fkey;
+
+delete from Profissional where nome_completo = 'Anna';
+
 select * from Crianca_Adolescente;
-select * from Usuario;
-select * from Crianca_Adoles
+select * from Atendimento;
+select * from Profissional;
+select * from Responsavel_Legal;
