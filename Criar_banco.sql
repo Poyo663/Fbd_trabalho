@@ -179,3 +179,6 @@ INSERT INTO Responsavel_Legal (nome, grau_parentesco, telefone, endereco, id_cri
 ('Maria Lima', 'Mãe', '(11) 93333-4444', 'Rua Nova, 321', 4),
 ('Carlos Costa', 'Pai', '(11) 95555-6666', 'Alameda Central, 88', 5);
 
+select * from Crianca_Adolescente;
+select * from Usuario;
+select * from Crianca_Adoles
