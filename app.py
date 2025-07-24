@@ -50,7 +50,7 @@ def addCrianca(nome, nascimento, sexo, cpf, escola, situacao, atendimento=None):
     try:
         cursor = connection.cursor()
         cursor.execute(
-            f"insert into Crianca_Adolescente (nome_completo, data_nascimento, sexo, cpf, escola, situacao_familiar, id_atendimento) values('{nome}', '{nascimento}', '{sexo}', '{cpf}', '{escola}', '{situacao}', null);"
+            f"insert into Crianca_Adolescente (nome_completo, data_nascimento, sexo, cpf, escola, situacao_familiar, id_atendimento) values('{nome}', to_date('{nascimento}', 'YYYY-MM-DD'), '{sexo}', '{cpf}', '{escola}', '{situacao}', null);"
         )
         connection.commit()
         cursor.close()
